@@ -1,0 +1,43 @@
+// 배경 (nav)
+$global-background-color: #2C2121;
+
+// 섹션 아이템 배경
+$global-item-back-dark: #140C02;
+$global-item-back-light: #3D2610;
+
+// 버튼
+$global-btn-dark: #7A4E18;
+$global-btn-light: #C8821A;
+$global-btn-border: #D4A84B;
+$global-btn-delete-dark: #6B1A1A;
+$global-btn-delete-light: #A03020;
+$global-btn-delete-border: #C45A3A;
+
+// 확률
+$global-success: #D4A84B;
+$global-maintain: #4A7A5A;
+$global-fail: #A03020;
+
+// 텍스트
+$global-main-text: #D4A84B;
+$global-nav-text: #E6D8D8;
+$global-btn-text: #F0D070;
+$global-btn-delete-text: #F0C4A0;
+
+@mixin flex($flex-direction, $align-items, $justify-content, $gap: 0) {
+  align-items: $align-items;
+  display: flex;
+  flex-direction: $flex-direction;
+  gap: $gap;
+  justify-content: $justify-content;
+
+  > * {
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  > .-flex-stretch {
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+}

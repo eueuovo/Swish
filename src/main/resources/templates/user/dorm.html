@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assets/styles/common.css">
+    <link rel="stylesheet" href="/user/assets/styles/dorm.css">
+    <script defer src="/user/assets/scripts/dorm.js"></script>
+</head>
+<body>
+<th:block th:replace="~{fragments/nav.html :: nav}"></th:block>
+<form class="dorm-wrapper" id="dorm-wrapper">
+    <div class="first-page">
+        <img class="img" src="/user/assets/images/hat.png" alt="">
+        <div class="content">분류 모자의 질문에 답 하면 기숙사 배정을 받게 되지..
+            호명되는 사람은 앞으로 나오도록!</div>
+        <div class="point-1">.</div>
+        <div class="point-2">.</div>
+        <div class="nickname">뎌뎌!</div>
+        <button class="next-btn">다음</button>
+    </div>
+    <div class="question-page" th:each="q, stat : ${questions}">
+        <div class="top-content">
+            <img class="img" src="/user/assets/images/hat.png" alt="">
+            <div class="text" th:text="${q.content}"></div>
+        </div>
+        <div class="question-wrapper">
+            <span class="question" th:each="a : ${q.answers}" th:text="${a.content}" th:data-dorm-id="${a.dormId}"></span>
+        </div>
+    </div>
+    <div class="last-page">
+        <img class="img" src="/user/assets/images/hat.png" alt="">
+        <div class="content">오호라! 그래그래.. 보인다 보여..
+            뎌뎌 너는....</div>
+        <div class="dorm"></div>
+        <div class="button-wrapper">
+            <button class="re">직접 선택</button>
+            <button class="next-btn">다음</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,97 @@
+@import "../def";
+
+body:has(> [data-object="dialog"][data-visible]){
+  overflow: hidden;
+}
+
+[data-object="dialog"]{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #212121a0;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  transition-duration: 175ms;
+  transition-property: opacity;
+  z-index: 10;
+
+  &[data-visible]{
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  > [data-component="dialog.modal"]{
+    @include flex(column, stretch, flex-start);
+    top: 50%;
+    left: 50%;
+    min-width: 20rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    opacity: 0;
+    overflow: hidden;
+    padding: 1.25rem 1.5rem;
+    pointer-events: none;
+    position: fixed;
+    transform: scale(97.5%) translate(-50%, -50%);
+    transition-duration: 175ms;
+    transition-property: filter, opacity, transform;
+    transform-origin: top left;
+
+    &[data-visible]{
+      filter: brightness(100%) grayscale(0%);
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(100%) translate(-50%, -50%);
+      color: $global-background-color;
+      font-size: 0.9rem;
+
+      &[data-collapsed]{
+        filter: brightness(75%) grayscale(100%);
+        opacity: 0.75;
+        pointer-events: none;
+        transform: scale(97.5%) translate(-50%, calc(-50% + 1rem));
+      }
+    }
+
+    > [data-component="dialog.modal.title"]{
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    > [data-component="dialog.modal.buttonContainer"]{
+      @include flex(row, center, flex-end, 0.5rem);
+      margin-top: 1rem;
+
+      > [data-component="dialog.modal.button"]{
+        $button-background-color: $global-background-color;
+        color: #ffffff;
+        cursor: pointer;
+        background-color: lighten($button-background-color, 10%);
+        border-radius: 999rem;
+        padding: 0.625rem 0.875rem;
+        transition-duration: 175ms;
+        transition-property: background-color;
+
+        &:hover{
+          background-color: darken($button-background-color, 2.5%);
+        }
+
+        &:active{
+          background-color: darken($button-background-color, 5%);
+        }
+
+        &:last-child{
+          background-color: lighten($button-background-color, 10%);
+          color: #ffffff;
+          font-size: 0.8rem;
+
+          &:hover{
+            background-color: $button-background-color;
+          }
+        }
+      }
+    }
+  }
+}

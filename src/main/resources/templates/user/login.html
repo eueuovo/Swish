@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login</title>
+    <link rel="stylesheet" href="/assets/styles/common.css">
+    <link rel="stylesheet" href="/user/assets/styles/login.css">
+    <script defer src="/user/assets/scripts/login.js" type="text/javascript"></script>
+</head>
+<body>
+<th:block th:replace="~{fragments/nav.html :: nav}"></th:block>
+<form class="login-form" name="loginForm">
+    <div class="image-wrapper">
+        <img class="img" src="/user/assets/images/login_image.png" alt="">
+    </div>
+    <div class="date-wrapper">
+        <div class="title">로그인</div>
+        <label class="id">
+            <span class="id-title">아이디</span>
+            <input class="id-input" name="id" type="text" placeholder="아이디를 입력해주세요.">
+        </label>
+        <label class="password">
+            <span class="password-title">비밀번호</span>
+            <input class="password-input" name="password" type="password" placeholder="비밀번호를 입력해주세요.">
+        </label>
+        <label class="id-remember">
+            <input type="radio">
+            <span class="remember-info">아이디를 기억하시겠습니까?</span>
+        </label>
+        <button class="login-btn">로그인</button>
+        <div class="user-info">
+            <span class="register">
+                <a class="register-url" href="/user/register">회원가입</a>
+            </span>
+            <span class="id-search">아이디 찾기</span>
+            <span class="password-search">비밀번호 찾기</span>
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,63 @@
+@use "sass:color";
+@import "../def";
+@import "./def";
+
+[data-object="button"] {
+  @mixin effect($base-background-color, $factor: 5%) {
+    background-color: $base-background-color;
+
+    &:hover {
+      background-color: darken($base-background-color, $factor);
+    }
+
+    &:active {
+      background-color: darken($base-background-color, $factor * 2);
+    }
+  }
+
+  @include flex(row, center, center, 0.5rem);
+  height: $input-height;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  padding: 0 1rem;
+  text-decoration: none !important;
+  transition-duration: 175ms;
+  transition-property: background-color;
+
+  &:disabled{
+    background-color: lighten(#000000, 70%) !important;
+    color: lighten($global-main-text, 80%) !important;
+    cursor: default !important;
+
+    > [data-component~="button.icon"]{
+      opacity: 50% !important;
+    }
+  }
+
+  &[data-color="blue"] {
+    @include effect(#2b7fff);
+    color: #ffffff;
+  }
+
+  &[data-color="gray"] {
+    @include effect(#7f8c8d);
+    color: #ffffff !important;
+  }
+
+  &[data-color="concept"] {
+    @include effect($global-main-text);
+    color: #ffffff ;
+  }
+
+  > [data-component~="button.icon"] {
+    width: 1.125rem;
+    height: 1.125rem;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  > [data-component~="button.caption"] {
+    top: 0.0625rem;
+    position: relative;
+  }
+}

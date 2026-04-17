@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Swish</title>
+    <link rel="stylesheet" href="/assets/styles/common.css">
+    <link rel="stylesheet" href="/main/assets/styles/main.css">
+    <script defer src="/main/assets/scripts/main.js"></script>
+</head>
+<body>
+<th:block th:replace="~{fragments/nav.html :: nav}"></th:block>
+<div class="toast-container" id="toastContainer"></div>
+<div class="main" id="main">
+    <img class="map" src="/main/assets/images/map.png" alt="">
+    <div class="panel">
+        <div class="login-overlay" th:if="${session.sessionUser == null}">
+            <div class="text">로그인 하여 지팡이를 강화하고</div>
+            <div class="text">기숙사 경쟁에 참여해보세요!</div>
+            <a href="/user/login" class="btn">로그인</a>
+        </div>
+        <div class="side-panel">
+            <div class="support">
+                <h2 class="title">일일 지원금</h2>
+                <ul class="support-list">
+                    <li class="item" th:if="${commonReward != null}">
+                        ⭐ 출석 <span th:text="${commonReward.galleon}">0</span> 갈레온
+                    </li>
+                    <li class="item" th:if="${dormReward != null}">
+                        💰 기숙사 지원금 <span th:text="${dormReward.galleon}">0</span> 갈레온
+                    </li>
+                    <li class="item" th:each="rewardItem : ${rewardItems}">
+                        ✏️ <span th:text="${itemMap[rewardItem.itemId].name}">아이템</span>
+                        ×<span th:text="${rewardItem.itemCount}">1</span>
+                    </li>
+                </ul>
+                <button class="btn" id="claimRewardBtn">지원금 수령</button>
+            </div>
+            <div class="rank">
+                <h2>강화 랭킹</h2>
+                <ul class="rank-list">
+                    <li class="item">⭐ 슬리데린 <span class="score">1,340점</span></li>
+                    <li class="item">⭐ 후플푸프 <span class="score">1,236점</span></li>
+                    <li class="item">⭐ 그리핀도르 <span class="score">1,146점</span></li>
+                    <li class="item">⭐ 레번클로 <span class="score">1,036점</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <h2>지팡이 강화</h2>
+            <div class="wand-info">
+                <img class="img"
+                     th:src="${sessionUser?.wandRank == 1 ? wand?.image : enhanceWand?.image}" alt="">
+                <div class="wand-detail">
+                    <h3 th:text="${wand?.name}">용나무 지팡이</h3>
+                    <p class="level">+<span th:text="${sessionUser?.wandRank}">0</span></p>
+                </div>
+                <div class="prob">
+                    <div class="prob-item">
+                        <span class="text">성공</span>
+                        <div class="bar success"></div>
+                        <span class="percent" th:text="${(sessionUser?.wandRank == 1 ? wand?.success : enhanceWand?.success) + '%'}">20%</span>
+                    </div>
+                    <div class="prob-item">
+                        <span class="text">유지</span>
+                        <div class="bar maintain"></div>
+                        <span class="percent" th:text="${(sessionUser?.wandRank == 1 ? wand?.maintain : enhanceWand?.maintain) + '%'}">60%</span>
+                    </div>
+                    <div class="prob-item">
+                        <span class="text">파괴</span>
+                        <div class="bar destroy"></div>
+                        <span class="percent" th:text="${(sessionUser?.wandRank == 1 ? wand?.fail : enhanceWand?.fail) + '%'}">20%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="items">
+                <div class="text-wrapper">
+                    <h3 class="text">아이템</h3>
+                    <img class="down" src="" alt="">
+                </div>
+                <div class="item-list">
+                    <div class="item" th:each="item : ${items}">
+                        <img class="img" th:src="${item.image}" alt="">
+                        <p class="name" th:text="${item.name}">아이템</p>
+                        <span class="info" th:text="${item.description}">설명</span>
+                        <span class="count">×<span th:text="${item.count}">1</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="action">
+                <button class="enhance">지팡이 강화</button>
+                <button class="sell">판매</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,192 @@
+@use "sass:color";
+@import "../../../assets/styles/def";
+
+#addressDialog{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #212121a0;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  transition-duration: 175ms;
+  transition-property: opacity;
+  z-index: 7;
+
+  &[data-visible]{
+    opacity: 1;
+    pointer-events: auto;
+
+    > .modal{
+      opacity: 1;
+      transform: scale(100%) translate(-50%, -50%);
+    }
+  }
+
+  > .modal{
+    top: 50%;
+    left: 50%;
+    width: 22.5rem;
+    height: 30rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    opacity: 0;
+    overflow: hidden;
+    position: fixed;
+    transform: scale(97.5%) translate(-50%, -50%);
+    transform-origin: top left;
+    transition-delay: 100ms;
+    transition-duration: 175ms;
+    transition-property: opacity, transform;
+  }
+}
+
+body:has(> #addressDialog[data-visible]){
+  overflow: hidden;
+}
+
+body {
+  @include flex(column, center, flex-start);
+  min-height: 100vh;
+}
+
+body > .register-form {
+  @include flex(column,stretch, flex-start , 0.5rem);
+  width: 40rem;
+  padding: 8rem 5rem;
+  background-image: url("../../../user/assets/images/register_back.png");
+  background-size: cover;
+  min-height: 60rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: $global-background-color;
+  margin: auto 0;
+
+  > .title {
+    font-size: 1.75rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  > .step {
+    @include flex(row, center, flex-start, 1rem);
+    border-bottom: 0.0625rem solid darken($global-background-color, 5%);
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    > .item {
+      @include flex(row, center, flex-start , 0.5rem);
+      &.active {
+        > .number {
+          background-color: $global-background-color;
+          color: #ffffff;
+        }
+        > .caption {
+          color: $global-background-color;
+        }
+      }
+      > .number {
+        @include flex(row, center, center);
+        width: 1.625rem;
+        height: 1.625rem;
+        background-color: #e4e4e4;
+        border-radius: 999rem;
+        font-size: 1.0625rem;
+        color: #a1a1a1;
+        font-weight: 300;
+        line-height: 0;
+      }
+
+      > .caption {
+        color: #737373;
+      }
+    }
+  }
+  > .content {
+    @include flex(column, stretch, flex-start, 0.5rem);
+    display: none;
+
+    &[data-visible] {
+      display: flex;
+    }
+
+    > .description{
+      border:0.0625rem solid $global-background-color;
+      border-radius: 0.25rem;
+      color: #6a7282;
+      font-size: 0.8rem;
+      line-height: 1.375;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 0.75rem;
+    }
+
+    > .term-wrapper{
+      > .term-content{
+        border: 0.0625rem solid #6a7282;
+        border-radius: 0.25rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+        line-height: 1.375;
+        height: 5rem;
+      }
+    }
+  }
+
+  > .content.complete{
+    @include flex(column, center, center, 1rem);
+    display: none;
+
+    &[data-visible]{
+      display: flex;
+    }
+
+    > .title{
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
+
+    > .subtitle{
+      font-size: 1.125rem;
+      font-weight: 300;
+      line-height: 1.25;
+      text-align: center;
+    }
+  }
+
+  > .button-container {
+    @include flex(row, stretch, flex-start, 0.5rem);
+    border-top: 0.0625rem solid darken($global-background-color, 5%);
+    margin-top: 1rem;
+    padding-top: 1rem;
+
+    > [data-object="button"] {
+      display: none;
+
+      &[data-visible]{
+        display: flex;
+      }
+    }
+  }
+
+  > .content.information{
+    > .email-wrapper{
+      > .input{
+        border: 0.0625rem solid #2C2121;
+        border-radius: 0.25rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+        font-family: initial !important;
+      }
+    }
+
+    > .password-wrapper{
+      > .input{
+        border: 0.0625rem solid #2C2121;
+        border-radius: 0.25rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+        font-family: initial !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,124 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.login-form {
+  background-image: url("../../../user/assets/images/login_back.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 60rem;
+  height: 70vh;
+  margin-top: 6rem;
+  position: relative; }
+  .login-form > .image-wrapper {
+    position: absolute;
+    top: 10%;
+    left: 7%; }
+    .login-form > .image-wrapper > .img {
+      width: 25rem; }
+  .login-form > .date-wrapper {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: flex-start;
+    position: absolute;
+    top: 20%;
+    right: 9%;
+    width: 21rem;
+    color: #2C2121; }
+    .login-form > .date-wrapper > * {
+      flex-grow: 0;
+      flex-shrink: 0; }
+    .login-form > .date-wrapper > .-flex-stretch {
+      flex-grow: 1;
+      flex-shrink: 1; }
+    .login-form > .date-wrapper > .title {
+      font-size: 2rem;
+      font-weight: bold;
+      padding-bottom: 1rem; }
+    .login-form > .date-wrapper > .id,
+    .login-form > .date-wrapper > .password {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      justify-content: flex-start;
+      width: 100%; }
+      .login-form > .date-wrapper > .id > *,
+      .login-form > .date-wrapper > .password > * {
+        flex-grow: 0;
+        flex-shrink: 0; }
+      .login-form > .date-wrapper > .id > .-flex-stretch,
+      .login-form > .date-wrapper > .password > .-flex-stretch {
+        flex-grow: 1;
+        flex-shrink: 1; }
+      .login-form > .date-wrapper > .id > .id-input,
+      .login-form > .date-wrapper > .id > .password-input,
+      .login-form > .date-wrapper > .password > .id-input,
+      .login-form > .date-wrapper > .password > .password-input {
+        width: 100%;
+        border: 0.0625rem solid #2C2121;
+        border-radius: 0.25rem;
+        padding: 0.5rem 0.75rem;
+        background: transparent;
+        font-size: 1rem;
+        font-family: initial !important; }
+        .login-form > .date-wrapper > .id > .id-input::placeholder,
+        .login-form > .date-wrapper > .id > .password-input::placeholder,
+        .login-form > .date-wrapper > .password > .id-input::placeholder,
+        .login-form > .date-wrapper > .password > .password-input::placeholder {
+          font-size: 0.9rem;
+          color: rgba(0, 0, 0, 0.4); }
+    .login-form > .date-wrapper > .id-remember {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: row;
+      gap: 0.4rem;
+      justify-content: center;
+      font-size: 0.9rem; }
+      .login-form > .date-wrapper > .id-remember > * {
+        flex-grow: 0;
+        flex-shrink: 0; }
+      .login-form > .date-wrapper > .id-remember > .-flex-stretch {
+        flex-grow: 1;
+        flex-shrink: 1; }
+    .login-form > .date-wrapper > .login-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #3b2a1a;
+      color: #f5e6c8;
+      border: none;
+      border-radius: 0.25rem;
+      font-size: 1rem;
+      cursor: pointer; }
+    .login-form > .date-wrapper > .user-info {
+      align-items: space-between;
+      display: flex;
+      flex-direction: row;
+      gap: 0;
+      justify-content: center;
+      width: 100%;
+      font-size: 0.85rem;
+      padding-top: 2rem; }
+      .login-form > .date-wrapper > .user-info > * {
+        flex-grow: 0;
+        flex-shrink: 0; }
+      .login-form > .date-wrapper > .user-info > .-flex-stretch {
+        flex-grow: 1;
+        flex-shrink: 1; }
+      .login-form > .date-wrapper > .user-info > span {
+        cursor: pointer;
+        flex: 1;
+        text-align: center; }
+        .login-form > .date-wrapper > .user-info > span:first-child {
+          text-align: left; }
+        .login-form > .date-wrapper > .user-info > span:last-child {
+          text-align: right; }
+        .login-form > .date-wrapper > .user-info > span:hover {
+          text-decoration: underline; }
+
+/*# sourceMappingURL=login.css.map */

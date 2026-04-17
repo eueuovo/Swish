@@ -1,0 +1,107 @@
+@import "../../../assets/styles/def";
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form {
+  background-image: url("../../../user/assets/images/login_back.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 60rem;
+  height: 70vh;
+  margin-top: 6rem;
+  position: relative;
+
+  > .image-wrapper{
+    position: absolute;
+    top: 10%;
+    left: 7%;
+
+    > .img{
+      width: 25rem;
+    }
+  }
+
+  > .date-wrapper {
+    @include flex(column, flex-start, flex-start, 1rem);
+    position: absolute;
+    top: 20%;
+    right: 9%;
+    width: 21rem;
+    color: $global-background-color;
+
+    > .title {
+      font-size: 2rem;
+      font-weight: bold;
+      padding-bottom: 1rem;
+    }
+
+    > .id,
+    > .password {
+      @include flex(column, flex-start, flex-start, 0.3rem);
+      width: 100%;
+
+      > .id-input,
+      > .password-input {
+        width: 100%;
+        border: 0.0625rem solid $global-background-color;
+        border-radius: 0.25rem;
+        padding: 0.5rem 0.75rem;
+        background: transparent;
+        font-size: 1rem;
+        font-family: initial !important;
+
+        &::placeholder {
+          font-size: 0.9rem;
+          color: rgba(0, 0, 0, 0.4);
+        }
+      }
+    }
+
+    > .id-remember {
+      @include flex(row, flex-start, center, 0.4rem);
+      font-size: 0.9rem;
+    }
+
+    > .login-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #3b2a1a;
+      color: #f5e6c8;
+      border: none;
+      border-radius: 0.25rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    > .user-info {
+      @include flex(row, space-between, center, 0);
+      width: 100%;
+      font-size: 0.85rem;
+      padding-top: 2rem;
+
+      > span {
+        cursor: pointer;
+        flex: 1;
+        text-align: center;
+
+        &:first-child {
+          text-align: left;
+        }
+
+        &:last-child {
+          text-align: right;
+        }
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

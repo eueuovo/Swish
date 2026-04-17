@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.dhkim.swish.mappers.EmailTokenMapper">
+
+    <insert id="insert">
+        INSERT INTO `swish`.`email_tokens` (`email`, `code`, `salt`, `is_verified`, `is_used`, `created_at`, `expires_at`)
+        VALUES (#{email}, #{code}, #{salt}, #{verified}, #{used}, #{createdAt}, #{expiresAt})
+    </insert>
+
+    <select id="select" resultType="dev.dhkim.swish.entities.user.EmailTokensEntity">
+        SELECT `email`       AS `email`,
+               `code`        AS `code`,
+               `salt`        AS `salt`,
+               `is_verified` AS `verified`,
+               `is_used`     AS `used`,
+               `created_at`  AS `createdAt`,
+               `expires_at`  AS `expiresAt`
+        FROM `swish`.`email_tokens`
+        WHERE `email` = #{email}
+          AND `code` = #{code}
+          AND `salt` = #{salt}
+        ORDER BY `id` DESC
+        LIMIT 1
+    </select>
+
+    <update id="update">
+        UPDATE `swish`.`email_tokens`
+        SET `is_verified` = #{verified},
+            `is_used`     = #{used}
+        WHERE `email` = #{email}
+          AND `code`  = #{code}
+          AND `salt`  = #{salt}
+    </update>
+
+</mapper>

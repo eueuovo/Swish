@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>회원가입 회원 예제</title>
+    <link href="/assets/styles/common.css" rel="stylesheet" type="text/css">
+    <link href="/user/assets/styles/register.css" rel="stylesheet" type="text/css">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/assets/scripts/common.js" type="text/javascript"></script>
+    <script defer src="/user/assets/scripts/register.js" type="text/javascript"></script>
+</head>
+<body>
+<th:block th:replace="~{fragments/nav.html :: nav}"></th:block>
+<div data-object="dialog"></div>
+<div data-object="loading">
+    <div data-component="loading.icon"></div>
+    <div data-component="loading.message"></div>
+</div>
+<div id="addressDialog">
+    <div class="modal"></div>
+</div>
+
+<form novalidate class="register-form" name="registerForm">
+    <h1 class="title">회원가입</h1>
+    <ul class="step">
+        <li class="item term active">
+            <span class="number">1</span>
+            <span class="caption">이용 약관</span>
+        </li>
+        <li class="item verification">
+            <span class="number">2</span>
+            <span class="caption">이메일 인증</span>
+        </li>
+        <li class="item information">
+            <span class="number">3</span>
+            <span class="caption">정보 입력</span>
+        </li>
+        <li class="item">
+            <span class="number complete">4</span>
+            <span class="caption">가입 완료</span>
+        </li>
+    </ul>
+    <div class="content term" data-visible>
+        <div class="description">아래 서비스 이용약관, 개인정보 처리방침, 마케팅 정보 수신 약관 등을 읽어본 뒤 회원가입을 진행해 주시기 바랍니다. 사용자는 약관을 거부할 권리가 있으며 일부 약관의 경우 거부시 서비스를 이용할 수 없을 수도 있습니다.</div>
+        <label data-object="label" class="term-wrapper">
+            <span data-component="label.caption">서비스 이용약관</span>
+            <textarea class="term-content" readonly rows="7" spellcheck="false" data-object="input"
+                    data-component="label.field" data-resize="none" name="termPolicy">본 서비스는 지팡이 강화 등 게임형 기능을 제공합니다. 이용자는 정상적인 방법으로 서비스를 이용해야 하며, 버그·매크로 등 부정 이용 시 이용이 제한될 수 있습니다. 서비스 내용은 운영 정책에 따라 변경 또는 중단될 수 있습니다.</textarea>
+        </label>
+        <!--체크-->
+        <label data-object="checkLabel" data-name="registerTermPolicyCheck">
+            <input name="termPolicyCheck" type="checkbox" data-component="checkLabel.input">
+            <span data-component="checkLabel.box"></span>
+            <span data-component="checkLabel.caption">[필수] 위 서비스 이용약관을 읽어보았으며 이해하였고 동의합니다.</span>
+        </label>
+        <div class="space" role="none"></div>
+        <label data-object="label" class="term-wrapper">
+            <span data-component="label.caption">개인정보 처리방침</span>
+            <textarea class="term-content" readonly rows="7" spellcheck="false" data-object="input"
+                    data-component="label.field" data-resize="none" name="termPrivacy">서비스는 회원 가입 및 운영을 위해 이메일 등 최소한의 정보를 수집합니다. 수집된 정보는 회원 관리, 서비스 제공, 부정 이용 방지를 위해 사용되며, 회원 탈퇴 시 지체 없이 삭제됩니다.</textarea>
+        </label>
+        <!--체크-->
+        <label data-object="checkLabel" data-name="registerTermPrivacyCheck">
+            <input name="termPrivacyCheck" type="checkbox" data-component="checkLabel.input">
+            <span data-component="checkLabel.box"></span>
+            <span data-component="checkLabel.caption">[필수] 위 개인정보 처리방침을 읽어보았으며 이해하였고 동의합니다.</span>
+        </label>
+        <div class="space" role="none"></div>
+        <label data-object="label" class="term-wrapper">
+            <span data-component="label.caption">마케팅 정보 수신 약관</span>
+            <textarea class="term-content" readonly rows="7" spellcheck="false" data-object="input"
+                    data-component="label.field" data-resize="none" name="termMarketing">이벤트, 혜택, 업데이트 안내를 위해 이메일로 마케팅 정보를 발송할 수 있습니다. 동의는 선택 사항이며 언제든지 철회할 수 있습니다.</textarea>
+        </label>
+        <!--체크-->
+        <label data-object="checkLabel" data-name="registerTermMarketingCheck">
+            <input name="termMarketingCheck" type="checkbox" data-component="checkLabel.input">
+            <span data-component="checkLabel.box"></span>
+            <span data-component="checkLabel.caption">[선택] 위 마케팅 정보 수신 약관을 읽어보았으며 이해하였고 동의합니다.</span>
+        </label>
+    </div>
+    <div class="content verification">
+        <input hidden name="emailSalt" type="hidden"> <!--보안키같은거라 생각하면 됨-->
+        <div class="description">이메일 인증을 진행해 주세요. 입력하신 이메일은 로그인이나 분실한 계정 정보를 복원하는데 사용함으로 꼭 이메일을 수신할 수 있는 실제 이메일 정보를 입력해 주세요.</div>
+        <label data-object="label" data-name="registerEmailLabel">
+            <span data-component="label.caption">이메일</span>
+            <span data-component="label.row">
+                <input required autocomplete="email" class="-flex-stretch" maxlength="50" minlength="8" name="email" spellcheck="false" type="email" data-object="input" data-component="label.field">
+                <button name="emailCodeSendButton" type="button" data-object="button" data-color="concept">
+                    <span data-component="button.caption">인증번호 전송</span>
+                </button>
+            </span>
+            <span data-component="label.messageWrapper label.warningWrapper">
+                <span data-component="label.messageCaption">올바른 이메일을 입력해 주세요.</span>
+            </span>
+        </label>
+        <label data-object="label" data-name="registerEmailCodeLabel">
+            <span data-component="label.caption">이메일 인증번호</span>
+            <span data-component="label.row">
+                <input disabled required autocomplete="off" class="-flex-stretch" maxlength="6" minlength="6" name="emailCode" spellcheck="false" type="text" data-object="input" data-component="label.field">
+                <button disabled name="emailCodeVerifyButton" type="button" data-object="button" data-color="concept">
+                    <span data-component="button.caption">인증번호 확인</span>
+                </button>
+            </span>
+            <span data-component="label.messageWrapper label.warningWrapper">
+                <span data-component="label.messageCaption">올바른 인증번호를 입력해 주세요.</span>
+            </span>
+        </label>
+    </div>
+    <div class="content information">
+        <label data-object="label" data-name="registerEmailROLabel" class="email-wrapper">
+            <span data-component="label.caption">이메일</span>
+            <input readonly name="emailRO" type="email" data-object="input" data-component="label.field" class="input">
+        </label>
+        <label data-object="label" data-name="registerLoginIdLabel">
+            <span data-component="label.caption">아이디</span>
+            <input required autocomplete="off" maxlength="50" minlength="4" name="loginId" spellcheck="false" type="text" data-object="input" data-component="label.field">
+        </label>
+        <label data-object="label" data-name="registerPassword" class="password-wrapper">
+            <span data-component="label.caption">비밀번호</span>
+            <input required autocomplete="off" maxlength="50" minlength="6" name="password" spellcheck="false" type="password" data-object="input" data-component="label.field" class="input">
+            <input required autocomplete="off" maxlength="50" minlength="6" name="passwordCheck" placeholder="비밀번호를 한번 더 입력해 주세요." spellcheck="false" type="password" data-object="input" data-component="label.field" class="input">
+            <span data-component="label.messageWrapper label.warningWrapper">
+                <span data-component="label.messageCaption">올바른 비밀번호를 입력해 주세요.</span>
+            </span>
+        </label>
+        <label data-object="label" data-name="registerNicknameLabel">
+            <span data-component="label.caption">닉네임</span>
+            <span data-component="label.row">
+                <input required autocomplete="off" class="-flex-stretch" maxlength="10" minlength="1" name="nickname" spellcheck="false" type="text" data-object="input" data-component="label.field">
+                <button name="nicknameCheckButton" type="button" data-object="button" data-color="concept">
+                    <span data-component="button.caption">닉네임 중복 확인</span>
+                </button>
+            </span>
+            <span data-component="label.messageWrapper label.hintWrapper" data-visible="">
+                <span data-component="label.messageCaption">닉네임은 다른 회원에게도 표시되는 이름임으로 신중하게 지어주세요, 혐오감이나 불편함을 줄 수 있는 닉네임은 서비스 제재 대상이 될 수도 있습니다.</span>
+            </span>
+            <span data-component="label.messageWrapper label.warningWrapper">
+                <span data-component="label.messageCaption">올바른 닉네임을 입력해 주세요.</span>
+            </span>
+        </label>
+        <label data-object="label" data-name="registerContactLabel">
+            <span data-component="label.caption">연락처</span>
+            <span data-component="label.row">
+                <select required class="-flex-stretch" name="contactMvno" data-object="input" data-component="label.field">
+                    <option disabled hidden selected value="-1">통신사</option>
+                    <option value="SKT">SKT</option>
+                    <option value="KT">KT</option>
+                    <option value="LGU">LGU+</option>
+                    <option value="BMP">알뜰폰+</option>
+                </select>
+                <select required class="-flex-stretch" name="contactFirst" data-object="input" data-component="label.field">
+                    <option selected value="010">010</option>
+                </select>
+                <input required autocomplete="off" class="-flex-stretch" maxlength="4" minlength="3" name="contactSecond" placeholder="0000" spellcheck="false" type="text" data-object="input" data-component="label.field">
+                <input required autocomplete="off" class="-flex-stretch" maxlength="4" minlength="3" name="contactThird" placeholder="0000" spellcheck="false" type="text" data-object="input" data-component="label.field">
+            </span>
+            <span data-component="label.messageWrapper label.warningWrapper">
+                <span data-component="label.messageCaption">통신사를 선택해 주세요.</span>
+            </span>
+        </label>
+    </div>
+    <div class="content complete">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="256" height="256" viewBox="0,0,256,256">
+            <g fill="#a6a09b" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                <g transform="scale(10.66667,10.66667)">
+                    <path d="M19.98047,5.99023c-0.2598,0.00774 -0.50638,0.11632 -0.6875,0.30273l-10.29297,10.29297l-3.29297,-3.29297c-0.25082,-0.26124 -0.62327,-0.36647 -0.97371,-0.27511c-0.35044,0.09136 -0.62411,0.36503 -0.71547,0.71547c-0.09136,0.35044 0.01388,0.72289 0.27511,0.97371l4,4c0.39053,0.39037 1.02353,0.39037 1.41406,0l11,-11c0.29576,-0.28749 0.38469,-0.72707 0.22393,-1.10691c-0.16075,-0.37985 -0.53821,-0.62204 -0.9505,-0.60988z"></path>
+                </g>
+            </g>
+        </svg>
+        <h2 class="title">회원가입 완료</h2>
+        <span class="subtitle">회원가입해 주셔서 감사합니다. 아래 '완료' 버튼을 클릭하면 로그인 페이지로 이동합니다.</span>
+    </div>
+    <div class="button-container">
+        <button name="cancel" type="button" data-object="button" data-color="gray" data-name="registerCancelButton" data-visible>취소</button>
+        <span class="-flex-stretch" role="none"></span>
+        <button name="previous" type="button" data-object="button" data-color="gray" data-name="registerPreviousButton">
+                 data-component="button.icon">
+            <span data-component="button.caption">이전</span>
+        </button>
+        <button name="next" type="submit" data-object="button" data-color="concept" data-name="registerNextButton" data-visible>
+            <span data-component="button.caption">다음</span>
+        </button>
+        <button name="complete" type="submit" data-object="button" data-color="concept">완료</button>
+    </div>
+</form>
+</body>
+</html>

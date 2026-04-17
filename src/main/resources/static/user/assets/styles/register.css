@@ -1,0 +1,217 @@
+@use "sass:color";
+#addressDialog {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #212121a0;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  transition-duration: 175ms;
+  transition-property: opacity;
+  z-index: 7; }
+  #addressDialog[data-visible] {
+    opacity: 1;
+    pointer-events: auto; }
+    #addressDialog[data-visible] > .modal {
+      opacity: 1;
+      transform: scale(100%) translate(-50%, -50%); }
+  #addressDialog > .modal {
+    top: 50%;
+    left: 50%;
+    width: 22.5rem;
+    height: 30rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    opacity: 0;
+    overflow: hidden;
+    position: fixed;
+    transform: scale(97.5%) translate(-50%, -50%);
+    transform-origin: top left;
+    transition-delay: 100ms;
+    transition-duration: 175ms;
+    transition-property: opacity, transform; }
+
+body:has(> #addressDialog[data-visible]) {
+  overflow: hidden; }
+
+body {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  justify-content: flex-start;
+  min-height: 100vh; }
+  body > * {
+    flex-grow: 0;
+    flex-shrink: 0; }
+  body > .-flex-stretch {
+    flex-grow: 1;
+    flex-shrink: 1; }
+
+body > .register-form {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  width: 40rem;
+  padding: 8rem 5rem;
+  background-image: url("../../../user/assets/images/register_back.png");
+  background-size: cover;
+  min-height: 60rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #2C2121;
+  margin: auto 0; }
+  body > .register-form > * {
+    flex-grow: 0;
+    flex-shrink: 0; }
+  body > .register-form > .-flex-stretch {
+    flex-grow: 1;
+    flex-shrink: 1; }
+  body > .register-form > .title {
+    font-size: 1.75rem;
+    font-weight: 300;
+    margin-bottom: 1rem; }
+  body > .register-form > .step {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: flex-start;
+    border-bottom: 0.0625rem solid #1d1616;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem; }
+    body > .register-form > .step > * {
+      flex-grow: 0;
+      flex-shrink: 0; }
+    body > .register-form > .step > .-flex-stretch {
+      flex-grow: 1;
+      flex-shrink: 1; }
+    body > .register-form > .step > .item {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      justify-content: flex-start; }
+      body > .register-form > .step > .item > * {
+        flex-grow: 0;
+        flex-shrink: 0; }
+      body > .register-form > .step > .item > .-flex-stretch {
+        flex-grow: 1;
+        flex-shrink: 1; }
+      body > .register-form > .step > .item.active > .number {
+        background-color: #2C2121;
+        color: #ffffff; }
+      body > .register-form > .step > .item.active > .caption {
+        color: #2C2121; }
+      body > .register-form > .step > .item > .number {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        gap: 0;
+        justify-content: center;
+        width: 1.625rem;
+        height: 1.625rem;
+        background-color: #e4e4e4;
+        border-radius: 999rem;
+        font-size: 1.0625rem;
+        color: #a1a1a1;
+        font-weight: 300;
+        line-height: 0; }
+        body > .register-form > .step > .item > .number > * {
+          flex-grow: 0;
+          flex-shrink: 0; }
+        body > .register-form > .step > .item > .number > .-flex-stretch {
+          flex-grow: 1;
+          flex-shrink: 1; }
+      body > .register-form > .step > .item > .caption {
+        color: #737373; }
+  body > .register-form > .content {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: flex-start;
+    display: none; }
+    body > .register-form > .content > * {
+      flex-grow: 0;
+      flex-shrink: 0; }
+    body > .register-form > .content > .-flex-stretch {
+      flex-grow: 1;
+      flex-shrink: 1; }
+    body > .register-form > .content[data-visible] {
+      display: flex; }
+    body > .register-form > .content > .description {
+      border: 0.0625rem solid #2C2121;
+      border-radius: 0.25rem;
+      color: #6a7282;
+      font-size: 0.8rem;
+      line-height: 1.375;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 0.75rem; }
+    body > .register-form > .content > .term-wrapper > .term-content {
+      border: 0.0625rem solid #6a7282;
+      border-radius: 0.25rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+      line-height: 1.375;
+      height: 5rem; }
+  body > .register-form > .content.complete {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    display: none; }
+    body > .register-form > .content.complete > * {
+      flex-grow: 0;
+      flex-shrink: 0; }
+    body > .register-form > .content.complete > .-flex-stretch {
+      flex-grow: 1;
+      flex-shrink: 1; }
+    body > .register-form > .content.complete[data-visible] {
+      display: flex; }
+    body > .register-form > .content.complete > .title {
+      font-size: 1.5rem;
+      font-weight: 300; }
+    body > .register-form > .content.complete > .subtitle {
+      font-size: 1.125rem;
+      font-weight: 300;
+      line-height: 1.25;
+      text-align: center; }
+  body > .register-form > .button-container {
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: flex-start;
+    border-top: 0.0625rem solid #1d1616;
+    margin-top: 1rem;
+    padding-top: 1rem; }
+    body > .register-form > .button-container > * {
+      flex-grow: 0;
+      flex-shrink: 0; }
+    body > .register-form > .button-container > .-flex-stretch {
+      flex-grow: 1;
+      flex-shrink: 1; }
+    body > .register-form > .button-container > [data-object="button"] {
+      display: none; }
+      body > .register-form > .button-container > [data-object="button"][data-visible] {
+        display: flex; }
+  body > .register-form > .content.information > .email-wrapper > .input {
+    border: 0.0625rem solid #2C2121;
+    border-radius: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    font-family: initial !important; }
+  body > .register-form > .content.information > .password-wrapper > .input {
+    border: 0.0625rem solid #2C2121;
+    border-radius: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    font-family: initial !important; }
+
+/*# sourceMappingURL=register.css.map */

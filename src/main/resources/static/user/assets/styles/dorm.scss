@@ -1,0 +1,70 @@
+@import "../../../assets/styles/def";
+
+#dorm-wrapper{
+  @include flex(column, center, center);
+  width: 100%;
+  min-height: 100vh;
+
+  > .first-page{
+    @include flex(column, center, center, 1rem);
+
+    > .img{
+      width: 30rem;
+      padding-bottom: 1rem;
+    }
+
+    > .content,
+    > .point-1,
+    > .point-2,
+    > .nickname{
+      font-size: 1.1rem;
+      color: $global-background-color;
+      font-weight: 700;
+    }
+
+    > .next-btn{
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: $global-nav-text;
+      font-weight: 700;
+      background-color: $global-background-color;
+      padding: 1rem 2rem;
+      border-radius: 0.25rem;
+    }
+  }
+
+  > .question-page{
+    @include flex(column, center, center, 1rem);
+
+    > .top-content{
+      @include flex(row, center, center, 1rem);
+
+      > .img{
+        width: 10rem;
+      }
+
+      > .text{
+        color: $global-background-color;
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+    }
+
+    > .question-wrapper{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      width: 100%;
+      padding-top: 2rem;
+
+      > .question{
+        @include flex(row, center, center);
+        background-color: $global-background-color;
+        padding: 4rem 2rem;
+        border-radius: 0.25rem;
+        font-size: 1.2rem;
+        color: $global-nav-text;
+      }
+    }
+  }
+}

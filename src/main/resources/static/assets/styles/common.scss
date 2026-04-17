@@ -1,0 +1,161 @@
+@import "def";
+@import "./objects/dialog";
+@import "./objects/label";
+@import "./objects/checkLabel";
+@import "./objects/button";
+
+@font-face {
+  font-family: 'harry';
+  src: url('../fonts/Harry_Potter_Font.TTF') format('truetype');
+}
+
+@font-face {
+  font-family: 'heiroflight';
+  src: url('../fonts/HeirofLightOTFRegular.otf') format('opentype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'heiroflight';
+  src: url('../fonts/HeirofLightOTFBold.otf') format('opentype');
+  font-weight: 700;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  @include flex(column, stretch, flex-start);
+  min-height: 100%;
+  color: $global-main-text;
+  cursor: default;
+  font-family: 'heiroflight';
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: initial;
+  user-select: none;
+  background-image: url("../../assets/images/main-back.png");
+}
+
+button, input, select, textarea {
+  background-color: inherit;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: initial;
+  margin-block: initial;
+  margin-inline: initial;
+  outline: none;
+  padding: initial;
+  padding-block: initial;
+  padding-inline: initial;
+  font-family: 'heiroflight';
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font: inherit;
+  margin-block: initial;
+  margin-inline: initial;
+}
+
+html {
+  height: 100%;
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ol, ul {
+  list-style-type: none;
+  margin-block: 0;
+  padding-inline: 0;
+}
+
+#nav{
+  @include flex(row, center, space-between, 1.5rem);
+  font-family: 'harry';
+  width: 100%;
+  height: 5rem;
+  padding: 0 1rem;
+  color: $global-nav-text;
+  background-color: $global-background-color;
+
+  > .category-section{
+    @include flex(row, center, flex-start, 1.5rem);
+
+    > .logo{
+      > .img{
+        width: 13rem;
+        cursor: pointer;
+      }
+    }
+
+    > .category{
+      font-size: 2rem;
+      cursor: pointer;
+    }
+  }
+
+  > .user-section{
+    @include flex(row, center, flex-start, 1.5rem);
+
+    > .galleon,
+    > .coin{
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    > .login,
+    > .logout{
+      font-size: 2rem;
+      cursor: pointer;
+    }
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.toast-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+
+  .toast {
+    padding: 12px 24px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    opacity: 0;
+    animation: fadeInOut 2.5s ease forwards;
+
+    &.success { background-color: #4caf50; }
+    &.fail    { background-color: #f44336; }
+    &.maintain{ background-color: #2196f3; }
+  }
+}
+
+@keyframes fadeInOut {
+  0%   { opacity: 0; transform: translateY(-10px); }
+  15%  { opacity: 1; transform: translateY(0); }
+  75%  { opacity: 1; }
+  100% { opacity: 0; }
+}

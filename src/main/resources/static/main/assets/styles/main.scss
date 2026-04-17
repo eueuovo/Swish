@@ -1,0 +1,303 @@
+@import "../../../assets/styles/def";
+
+body{
+  overflow-x: auto;
+}
+
+#main {
+  @include flex(column, center, flex-start, 1rem);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  padding: 1rem 5.5rem 0 5.5rem;
+  min-width: 1000px;
+  flex: 1;
+
+  > .map {
+    width: 100%;
+    min-width: 1000px;
+  }
+
+  > .panel {
+    @include flex(row, flex-start, center, 1rem);
+    width: 100%;
+    min-width: 1000px;
+    position: relative;
+    margin-bottom: 1rem;
+
+    > .login-overlay {
+      position: absolute;
+      inset: -5px;
+      background-color: rgba(10, 6, 2, 0.7);
+      backdrop-filter: blur(2px);
+      mask-image: linear-gradient(to bottom, transparent 0%, black 1%, black 99%, transparent 100%),
+      linear-gradient(to right, transparent 0%, black 0.5%, black 99.5%, transparent 100%);
+      mask-composite: intersect;
+      @include flex(column, center, center, 0.8rem);
+      z-index: 10;
+
+      > .lock {
+        font-size: 2.5rem;
+        opacity: 0.7;
+      }
+
+      > .text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #D4A84B;
+      }
+
+      > .btn {
+        margin-top: 0.5rem;
+        padding: 0.6rem 2rem;
+        background: linear-gradient(180deg, $global-btn-light, $global-btn-dark);
+        border-radius: 0.4rem;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: $global-btn-text;
+        cursor: pointer;
+      }
+    }
+
+    > .side-panel {
+      @include flex(column, stretch, flex-start, 1rem);
+      min-width: 22rem;
+      flex-shrink: 1;
+      align-self: stretch;
+
+      > .support {
+        @include flex(column, center, center, 0.5rem);
+        background: radial-gradient(ellipse at top center, $global-item-back-light, $global-item-back-dark);
+        padding: 1.2rem;
+        flex: 1;
+        border: 2px solid #3A2208;
+        outline: 2px solid #D4A84B;
+        outline-offset: -6px;
+
+        > .title {
+          font-weight: 700;
+          font-size: 1.5rem;
+          padding-bottom: 0.7rem;
+          border-bottom: 0.0625rem solid #D4A84B;
+          width: 100%;
+          text-align: center;
+        }
+
+        > .support-list {
+          @include flex(column, center, center, 1rem);
+          font-weight: 400;
+          font-size: 1rem;
+          color: #D4A84B;
+          padding: 0.3rem 0;
+        }
+
+        > .btn {
+          font-weight: 700;
+          font-size: 1.3rem;
+          background: linear-gradient(180deg, $global-btn-light, $global-btn-dark);
+          width: 100%;
+          margin-top: 0.5rem;
+          padding: 0.7rem;
+          border-radius: 0.4rem;
+          cursor: pointer;
+          color: $global-btn-text;
+        }
+      }
+
+      > .rank {
+        @include flex(column, center, center, 0.5rem);
+        background: radial-gradient(ellipse at top center, $global-item-back-light, $global-item-back-dark);
+        padding: 1.2rem;
+        flex: 1;
+        border: 2px solid #3A2208;
+        outline: 2px solid #D4A84B;
+        outline-offset: -6px;
+
+        > h2 {
+          font-weight: 700;
+          font-size: 1.5rem;
+          padding-bottom: 0.7rem;
+          border-bottom: 0.0625rem solid #D4A84B;
+          width: 100%;
+          text-align: center;
+        }
+
+        > .rank-list {
+          @include flex(column, center, center, 1.5rem);
+          width: 100%;
+          font-size: 1rem;
+          color: #D4A84B;
+          padding: 0.3rem 1rem;
+
+          > .item {
+            @include flex(row, center, space-between, 0);
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    > .main-panel {
+      @include flex(column, stretch, flex-start, 1rem);
+      background: radial-gradient(ellipse at top center, $global-item-back-light, $global-item-back-dark);
+      flex: 1;
+      padding: 1.2rem;
+      border: 2px solid #3A2208;
+      outline: 2px solid #D4A84B;
+      outline-offset: -6px;
+
+      > h2 {
+        font-weight: 700;
+        font-size: 1.5rem;
+        padding-bottom: 0.7rem;
+        border-bottom: 0.0625rem solid #D4A84B;
+        width: 100%;
+        text-align: center;
+      }
+
+      > .wand-info {
+        @include flex(row, center, flex-start, 1rem);
+        padding: 0 1rem 1rem 1rem;
+        border-bottom: 0.0625rem solid #D4A84B;
+
+        > .img {
+          width: 30%;
+          height: 8rem;
+          object-fit: cover;
+          border-right: 0.0625rem solid #D4A84B;
+          padding-right: 1rem;
+          flex-shrink: 0;
+        }
+
+        > .wand-detail {
+          @include flex(column, center, center, 0.5rem);
+          flex: 1;
+          text-align: center;
+
+          > h3 {
+            font-weight: 700;
+            font-size: 1.3rem;
+          }
+
+          > .level {
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin: 1rem;
+          }
+        }
+
+        > .prob {
+          @include flex(column, flex-start, center, 1rem);
+          min-width: 30%;
+          flex-shrink: 1;
+          border-left: 0.0625rem solid #D4A84B;
+          padding-left: 1rem;
+          height: 8rem;
+
+          > .prob-item {
+            @include flex(row, center, flex-start, 0.5rem);
+            width: 100%;
+
+            > .text {
+              width: 2rem;
+              font-size: 0.9rem;
+            }
+
+            > .bar {
+              flex: 1;
+              height: 0.6rem;
+              border-radius: 1rem;
+              background-color: #3A2E20;
+              &.success { background-color: $global-success; width: 20%; }
+              &.maintain { background-color: $global-maintain; width: 60%; }
+              &.destroy { background-color: $global-fail; width: 20%; }
+            }
+
+            > .percent {
+              color: #D4A84B;
+              font-size: 0.9rem;
+              width: 2.5rem;
+              text-align: right;
+            }
+          }
+        }
+      }
+
+      > .items {
+        @include flex(column, stretch, flex-start);
+
+        > .text-wrapper {
+          @include flex(row, center, flex-start, 0.5rem);
+          font-weight: 700;
+          font-size: 1.3rem;
+          color: #D4A84B;
+        }
+
+        > .item-list {
+          @include flex(row, center, flex-start, 1rem);
+          padding: 0.7rem 0 1rem 0;
+          border-bottom: 0.0625rem solid #D4A84B;
+
+          > .item {
+            @include flex(column, center, center, 0.3rem);
+            border: 1px solid #D4A84B;
+            border-radius: 0.4rem;
+            padding: 0.8rem;
+            width: 8rem;
+            text-align: center;
+            cursor: pointer;
+
+            > .img {
+              width: 3.5rem;
+              height: 3.5rem;
+              object-fit: contain;
+            }
+
+            > .name {
+              font-size: 0.85rem;
+              color: #D4A84B;
+              font-weight: 700;
+            }
+
+            > .info {
+              font-size: 0.75rem;
+              color: $global-success;
+            }
+
+            > .count {
+              font-size: 0.85rem;
+              color: #D4A84B;
+            }
+          }
+        }
+      }
+
+      > .action {
+        @include flex(row, center, center, 1rem);
+
+        > .enhance {
+          flex: 1;
+          padding: 0.9rem;
+          border-radius: 0.4rem;
+          font-weight: 700;
+          font-size: 1.5rem;
+          cursor: pointer;
+          color: $global-btn-text;
+          background: linear-gradient(180deg, $global-btn-light, $global-btn-dark);
+        }
+
+        > .sell {
+          flex: 1;
+          padding: 0.9rem;
+          border-radius: 0.4rem;
+          font-weight: 700;
+          font-size: 1.5rem;
+          cursor: pointer;
+          color: $global-btn-text;
+          background: linear-gradient(180deg, #C0392B, #7B241C);
+        }
+      }
+    }
+  }
+}

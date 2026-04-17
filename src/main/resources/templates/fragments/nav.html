@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>nav</title>
+</head>
+<body>
+<div class="nav" id="nav" th:fragment="nav">
+    <div class="category-section">
+        <a href="/main" class="logo">
+            <img class="img" src="/assets/images/logo.png" alt="">
+        </a>
+        <span class="category">shop</span>
+        <span class="category">codex</span>
+    </div>
+    <div class="user-section">
+        <div class="galleon" th:if="${session.sessionUser != null}">
+            <span class="icon">💸</span>
+            <span class="text" th:text="${session.sessionUser.galleon}"></span>
+        </div>
+        <div class="coin" th:if="${session.sessionUser != null}">
+            <span class="icon">💎</span>
+            <span class="text" th:text="${session.sessionUser.coin}"></span>
+        </div>
+        <a class="login" href="/user/login" th:if="${session.sessionUser == null}">login</a>
+        <a class="logout" href="/user/logout" th:if="${session.sessionUser != null}">logout</a>
+    </div>
+</div>
+</body>
+</html>
