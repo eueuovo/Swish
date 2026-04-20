@@ -25,10 +25,12 @@
             i.`name`,
             i.`description`,
             i.`image`,
+            i.`effect_type`,
+            i.`effect_value`,
             COALESCE(SUM(ui.`count`), 0) AS count
         FROM `swish`.`item` i
                  LEFT JOIN `swish`.`item_user` ui ON i.`id` = ui.`item_id` AND ui.`user_id` = #{userId}
-        GROUP BY i.`id`, i.`name`, i.`description`, i.`image`
+        GROUP BY i.`id`, i.`name`, i.`description`, i.`image`, i.`effect_type`, i.`effect_value`
     </select>
 
     <select id="countUserItem" resultType="int">

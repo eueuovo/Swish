@@ -83,7 +83,9 @@
                     <div class="item"
                          th:each="item : ${items}"
                          th:classappend="${item.count == 0} ? 'empty'"
-                         th:data-item-id="${item.id}">
+                         th:data-item-id="${item.id}"
+                         th:data-effect-type="${item.effectType}"
+                         th:data-effect-value="${item.effectValue}">
                         <img class="img" th:src="${item.image}" alt="">
                         <p class="name" th:text="${item.name}">아이템</p>
                         <span class="info" th:text="${item.description}">설명</span>

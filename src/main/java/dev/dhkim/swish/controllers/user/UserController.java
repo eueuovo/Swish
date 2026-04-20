@@ -83,7 +83,7 @@ public class UserController {
     @ResponseBody
     public Map<String, Object> postLogin(@RequestParam String id,
                                          @RequestParam String password,
-                                         HttpSession session) {
+                                             HttpSession session) {
         Map<String, Object> result = new HashMap<>();
 
         UserEntity user = userService.login(id, password);

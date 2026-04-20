@@ -322,12 +322,44 @@ function showSellConfirmModal() {
     });
 }
 
+const defaultPercents = {
+    success: parseFloat(document.querySelectorAll('.prob .prob-item .percent')[0].textContent),
+    maintain: parseFloat(document.querySelectorAll('.prob .prob-item .percent')[1].textContent),
+    fail: parseFloat(document.querySelectorAll('.prob .prob-item .percent')[2].textContent),
+};
+
 document.querySelectorAll('.item-list .item:not(.empty)').forEach(item => {
     item.addEventListener('click', () => {
-        if (item.classList.contains('active')) {
-            item.classList.remove('active');
-        } else {
+        const isActive = item.classList.contains('active');
+        document.querySelectorAll('.item-list .item.active').forEach(el => el.classList.remove('active'));
+
+        if (!isActive) {
             item.classList.add('active');
+            const effectType = item.dataset.effectType;
+            const effectValue = parseFloat(item.dataset.effectValue);
+            let { success, maintain, fail } = defaultPercents;
+
+            if (effectType === 'SUCCESS_RATE_UP') {
+                const diff = Math.min(effectValue, 100 - success);
+                success += diff;
+                fail = Math.max(0, fail - diff);
+                maintain = 100 - success - fail;
+            } else if (effectType === 'DESTROY_PROTECT') {
+                maintain += fail;
+                fail = 0;
+            }
+
+            updateProbDisplay(success, maintain, fail);
+        } else {
+            updateProbDisplay(defaultPercents.success, defaultPercents.maintain, defaultPercents.fail);
         }
     });
 });
+
+function updateProbDisplay(success, maintain, fail) {
+    const percents = document.querySelectorAll('.prob .prob-item .percent');
+    percents[0].textContent = success + '%';
+    percents[1].textContent = maintain + '%';
+    percents[2].textContent = fail + '%';
+    updateBars();
+}
