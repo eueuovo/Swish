@@ -293,26 +293,35 @@ body {
               flex-shrink: 1; }
             #main > .panel > .main-panel > .wand-info > .prob > .prob-item > .text {
               width: 2rem;
-              font-size: 0.9rem; }
+              font-size: 0.9rem;
+              flex-shrink: 0; }
             #main > .panel > .main-panel > .wand-info > .prob > .prob-item > .bar {
               flex: 1;
               height: 0.6rem;
               border-radius: 1rem;
-              background-color: #3A2E20; }
-              #main > .panel > .main-panel > .wand-info > .prob > .prob-item > .bar.success {
-                background-color: #D4A84B;
-                width: 20%; }
-              #main > .panel > .main-panel > .wand-info > .prob > .prob-item > .bar.maintain {
-                background-color: #4A7A5A;
-                width: 60%; }
-              #main > .panel > .main-panel > .wand-info > .prob > .prob-item > .bar.destroy {
-                background-color: #A03020;
-                width: 20%; }
+              background-color: #000000;
+              position: relative; }
+              #main > .panel > .main-panel > .wand-info > .prob > .prob-item > .bar::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: var(--bar-width, 0%);
+                border-radius: 1rem;
+                transition: width 0.4s ease; }
+              #main > .panel > .main-panel > .wand-info > .prob > .prob-item > .bar.success::after {
+                background-color: #D4A84B; }
+              #main > .panel > .main-panel > .wand-info > .prob > .prob-item > .bar.maintain::after {
+                background-color: #4A7A5A; }
+              #main > .panel > .main-panel > .wand-info > .prob > .prob-item > .bar.destroy::after {
+                background-color: #A03020; }
             #main > .panel > .main-panel > .wand-info > .prob > .prob-item > .percent {
               color: #D4A84B;
               font-size: 0.9rem;
               width: 2.5rem;
-              text-align: right; }
+              text-align: right;
+              flex-shrink: 0; }
       #main > .panel > .main-panel > .items {
         align-items: stretch;
         display: flex;
@@ -365,13 +374,21 @@ body {
             padding: 0.8rem;
             width: 8rem;
             text-align: center;
-            cursor: pointer; }
+            cursor: pointer;
+            transition: background-color 0.15s ease; }
             #main > .panel > .main-panel > .items > .item-list > .item > * {
               flex-grow: 0;
               flex-shrink: 0; }
             #main > .panel > .main-panel > .items > .item-list > .item > .-flex-stretch {
               flex-grow: 1;
               flex-shrink: 1; }
+            #main > .panel > .main-panel > .items > .item-list > .item:not(.empty):not(.active):hover {
+              background-color: rgba(212, 168, 75, 0.15); }
+            #main > .panel > .main-panel > .items > .item-list > .item.active {
+              background-color: rgba(212, 168, 75, 0.35); }
+            #main > .panel > .main-panel > .items > .item-list > .item.empty {
+              opacity: 0.35;
+              cursor: default; }
             #main > .panel > .main-panel > .items > .item-list > .item > .img {
               width: 3.5rem;
               height: 3.5rem;

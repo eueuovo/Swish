@@ -106,4 +106,20 @@
         SET `wand_rank` = #{rank}
         WHERE `id` = #{userId}
     </update>
+
+    <insert id="addUserScore">
+        INSERT INTO `swish`.`user_score` (`user_id`, `score`, `created_at`)
+        VALUES (#{userId}, #{score}, NOW())
+    </insert>
+
+    <select id="findDormRanking" resultType="map">
+        SELECT
+            d.`name` AS dormName,
+            COALESCE(SUM(us.`score`), 0) AS totalScore
+        FROM `swish`.`dorm` d
+                 LEFT JOIN `swish`.`user` u ON u.`dorm_id` = d.`id`
+                 LEFT JOIN `swish`.`user_score` us ON us.`user_id` = u.`id`
+        GROUP BY d.`id`, d.`name`
+        ORDER BY totalScore DESC
+    </select>
 </mapper>

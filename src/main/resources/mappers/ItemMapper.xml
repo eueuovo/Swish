@@ -12,9 +12,22 @@
             i.`name`,
             i.`description`,
             i.`image`,
-            ui.`count` AS count
+            SUM(ui.`count`) AS count
         FROM `swish`.`item_user` ui
                  JOIN `swish`.`item` i ON ui.`item_id` = i.`id`
         WHERE ui.`user_id` = #{userId}
+        GROUP BY i.`id`, i.`name`, i.`description`, i.`image`
+    </select>
+
+    <select id="findAllWithUserCount" resultType="dev.dhkim.swish.dto.UserItemDto">
+        SELECT
+            i.`id`,
+            i.`name`,
+            i.`description`,
+            i.`image`,
+            COALESCE(SUM(ui.`count`), 0) AS count
+        FROM `swish`.`item` i
+                 LEFT JOIN `swish`.`item_user` ui ON i.`id` = ui.`item_id` AND ui.`user_id` = #{userId}
+        GROUP BY i.`id`, i.`name`, i.`description`, i.`image`
     </select>
 </mapper>

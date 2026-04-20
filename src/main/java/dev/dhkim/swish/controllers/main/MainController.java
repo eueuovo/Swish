@@ -35,13 +35,13 @@ public class MainController {
                                 @SessionAttribute(value = "sessionUser", required = false) UserEntity sessionUser, Model model){
         modelAndView.setViewName("main/main");
 
+        modelAndView.addObject("dormRanking", mainService.getDormRanking());
+
         if (sessionUser != null) {
             WandEntity wand = userService.getWandById(sessionUser.getWandId());
             modelAndView.addObject("wand", wand);
             modelAndView.addObject("sessionUser", sessionUser);
-            modelAndView.addObject("items",
-                    itemService.getUserItems(sessionUser.getId())
-            );
+            modelAndView.addObject("items", itemService.getAllItemsWithUserCount(sessionUser.getId()));
 
             if (sessionUser.getWandRank() > 1) {
                 EnhanceWandEntity enhanceWand = userService.getEnhanceWand(sessionUser.getWandId(), sessionUser.getWandRank());

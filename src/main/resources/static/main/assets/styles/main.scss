@@ -202,16 +202,30 @@ body{
             > .text {
               width: 2rem;
               font-size: 0.9rem;
+              flex-shrink: 0;
             }
 
             > .bar {
               flex: 1;
               height: 0.6rem;
               border-radius: 1rem;
-              background-color: #3A2E20;
-              &.success { background-color: $global-success; width: 20%; }
-              &.maintain { background-color: $global-maintain; width: 60%; }
-              &.destroy { background-color: $global-fail; width: 20%; }
+              background-color: #000000;
+              position: relative;
+
+              &::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: var(--bar-width, 0%);
+                border-radius: 1rem;
+                transition: width 0.4s ease;
+              }
+
+              &.success::after  { background-color: $global-success; }
+              &.maintain::after { background-color: $global-maintain; }
+              &.destroy::after  { background-color: $global-fail; }
             }
 
             > .percent {
@@ -219,6 +233,7 @@ body{
               font-size: 0.9rem;
               width: 2.5rem;
               text-align: right;
+              flex-shrink: 0;
             }
           }
         }
@@ -247,6 +262,20 @@ body{
             width: 8rem;
             text-align: center;
             cursor: pointer;
+            transition: background-color 0.15s ease;
+
+            &:not(.empty):not(.active):hover {
+              background-color: rgba(212, 168, 75, 0.15);
+            }
+
+            &.active {
+              background-color: rgba(212, 168, 75, 0.35);
+            }
+
+            &.empty {
+              opacity: 0.35;
+              cursor: default;
+            }
 
             > .img {
               width: 3.5rem;

@@ -20,4 +20,8 @@ public class ItemService {
     public List<UserItemDto> getUserItems(int userId) {
         return itemMapper.findByUserId(userId);
     }
+
+    public List<UserItemDto> getAllItemsWithUserCount(int userId) {
+        return itemMapper.findAllWithUserCount(userId);
+    }
 }

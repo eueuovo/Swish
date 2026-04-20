@@ -11,4 +11,9 @@ import java.util.List;
 public interface ItemMapper {
     ItemEntity findById(int id);
 
-    List<UserItemDto> findByUserId(@Param("userId") int userId);}
+    List<UserItemDto> findByUserId(@Param("userId") int userId);
+
+    List<UserItemDto> findAllWithUserCount(int userId);
+}
+
+

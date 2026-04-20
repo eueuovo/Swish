@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UserMapper {
@@ -38,4 +39,8 @@ public interface UserMapper {
     void addCoin(@Param("userId") int userId, @Param("coin") int coin);
 
     void updateWandRank(@Param("userId") int userId, @Param("rank") int rank);
+
+    void addUserScore(@Param("userId") int userId, @Param("score") int score);
+
+    List<Map<String, Object>> findDormRanking();
 }

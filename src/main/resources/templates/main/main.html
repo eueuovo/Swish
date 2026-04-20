@@ -41,13 +41,12 @@
             <div class="rank">
                 <h2>강화 랭킹</h2>
                 <ul class="rank-list">
-                    <li class="item">⭐ 슬리데린 <span class="score">1,340점</span></li>
-                    <li class="item">⭐ 후플푸프 <span class="score">1,236점</span></li>
-                    <li class="item">⭐ 그리핀도르 <span class="score">1,146점</span></li>
-                    <li class="item">⭐ 레번클로 <span class="score">1,036점</span></li>
+                    <li class="item" th:each="rank, stat : ${dormRanking}">
+                        <span th:text="${stat.index == 0 ? '🥇' : stat.index == 1 ? '🥈' : stat.index == 2 ? '🥉' : '⭐'} + ' ' + ${rank.dormName}">기숙사</span>
+                        <span class="score" th:text="${rank.totalScore} + '점'">0점</span>
+                    </li>
                 </ul>
-            </div>
-        </div>
+            </div>        </div>
         <div class="main-panel">
             <h2>지팡이 강화</h2>
             <div class="wand-info">
@@ -81,7 +80,7 @@
                     <img class="down" src="" alt="">
                 </div>
                 <div class="item-list">
-                    <div class="item" th:each="item : ${items}">
+                    <div class="item" th:each="item : ${items}" th:classappend="${item.count == 0} ? 'empty'">
                         <img class="img" th:src="${item.image}" alt="">
                         <p class="name" th:text="${item.name}">아이템</p>
                         <span class="info" th:text="${item.description}">설명</span>

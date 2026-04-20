@@ -154,6 +154,17 @@ public class MainService {
             }
             enhanceResult = "SUCCESS";
             newRank = currentRank + 1;
+
+            int score;
+
+            if (currentRank == 1) {
+                WandEntity wand = userMapper.findWandById(user.getWandId());
+                score = wand.getScore();
+            } else {
+                EnhanceWandEntity ew = userMapper.findEnhanceWand(user.getWandId(), currentRank);
+                score = ew.getScore();
+            }
+            userMapper.addUserScore(user.getId(), score);
         } else if (roll < successRate + maintainRate) {
             enhanceResult = "MAINTAIN";
         } else {
@@ -198,6 +209,8 @@ public class MainService {
                 result.put("newEnhanceCost", nextStat.getEnhanceCost());
             }
         }
+
+        result.put("dormRanking", getDormRanking());
 
         return result;
     }
@@ -254,10 +267,21 @@ public class MainService {
         user.setWandId(newWandId);
         user.setWandRank(1);
 
+        WandEntity newWand = userMapper.findWandById(newWandId);
+        result.put("newWandName", newWand.getName());
+        result.put("newWandImage", newWand.getImage());
+        result.put("newSuccess", newWand.getSuccess());
+        result.put("newMaintain", newWand.getMaintain());
+        result.put("newFail", newWand.getFail());
+
         result.put("success", true);
         result.put("message", "판매 완료!");
         result.put("sellPrice", sellPrice);
         result.put("remainGalleon", user.getGalleon());
         return result;
+    }
+
+    public List<Map<String, Object>> getDormRanking() {
+        return userMapper.findDormRanking();
     }
 }
