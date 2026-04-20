@@ -139,8 +139,19 @@ enhanceBtn.addEventListener('click', async () => {
     if (enhanceBtn.disabled) return;
     enhanceBtn.disabled = true;
 
+    const activeItem = document.querySelector('.item-list .item.active');
+    const itemId = activeItem ? activeItem.dataset.itemId : null;
+
+    const params = new URLSearchParams();
+    if (itemId) params.append('itemId', itemId);
+
     try {
-        const res = await fetch('/main/enhance', { method: 'POST' });
+        // ✅ fetch 수정
+        const res = await fetch('/main/enhance', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params
+        });
         const data = await res.json();
 
         if (!data.success) {
@@ -202,6 +213,7 @@ enhanceBtn.addEventListener('click', async () => {
     } catch (e) {
         showToast('오류가 발생했어요. 다시 시도해주세요.', 'fail');
     } finally {
+        if (activeItem) activeItem.classList.remove('active');
         enhanceBtn.disabled = false;
     }
 });

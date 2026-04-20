@@ -17,4 +17,6 @@ public class ItemEntity {
     private int price;
     private LocalDateTime createdAt;
     private String image;
+    private String effectType;
+    private Float effectValue;
 }

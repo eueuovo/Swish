@@ -24,4 +24,12 @@ public class ItemService {
     public List<UserItemDto> getAllItemsWithUserCount(int userId) {
         return itemMapper.findAllWithUserCount(userId);
     }
+
+    public boolean userHasItem(int userId, int itemId) {
+        return itemMapper.countUserItem(userId, itemId) > 0;
+    }
+
+    public void useItem(int userId, int itemId) {
+        itemMapper.decreaseItemCount(userId, itemId);
+    }
 }

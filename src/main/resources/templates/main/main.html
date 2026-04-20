@@ -80,7 +80,10 @@
                     <img class="down" src="" alt="">
                 </div>
                 <div class="item-list">
-                    <div class="item" th:each="item : ${items}" th:classappend="${item.count == 0} ? 'empty'">
+                    <div class="item"
+                         th:each="item : ${items}"
+                         th:classappend="${item.count == 0} ? 'empty'"
+                         th:data-item-id="${item.id}">
                         <img class="img" th:src="${item.image}" alt="">
                         <p class="name" th:text="${item.name}">아이템</p>
                         <span class="info" th:text="${item.description}">설명</span>

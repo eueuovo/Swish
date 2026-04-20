@@ -14,10 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
@@ -72,17 +69,15 @@ public class MainController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> enhance(
             @SessionAttribute(value = "sessionUser", required = false) UserEntity sessionUser,
+            @RequestParam(required = false) Integer itemId,
             HttpSession session) {
 
         if (sessionUser == null) {
             return ResponseEntity.status(401).body(Map.of("success", false, "message", "로그인이 필요해요."));
         }
 
-        // 세션 말고 DB에서 최신 유저 정보 가져오기
         UserEntity freshUser = userService.findByLoginId(sessionUser.getLoginId());
-
-        Map<String, Object> result = mainService.enhance(freshUser);
-
+        Map<String, Object> result = mainService.enhance(freshUser, itemId);
         session.setAttribute("sessionUser", freshUser);
 
         return ResponseEntity.ok(result);

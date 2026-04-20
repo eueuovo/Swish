@@ -14,6 +14,10 @@ public interface ItemMapper {
     List<UserItemDto> findByUserId(@Param("userId") int userId);
 
     List<UserItemDto> findAllWithUserCount(int userId);
+
+    int countUserItem(@Param("userId") int userId, @Param("itemId") int itemId);
+
+    void decreaseItemCount(@Param("userId") int userId, @Param("itemId") int itemId);
 }
 
 

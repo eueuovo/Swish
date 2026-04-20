@@ -100,7 +100,7 @@ public class MainService {
         return result;
     }
 
-    public Map<String, Object> enhance(UserEntity user) {
+    public Map<String, Object> enhance(UserEntity user, Integer itemId) {
         Map<String, Object> result = new HashMap<>();
 
         int currentRank = user.getWandRank();
@@ -135,6 +135,39 @@ public class MainService {
         // 갈레온 차감
         userMapper.addGalleon(user.getId(), -enhanceCost);
         user.setGalleon(user.getGalleon() - enhanceCost);
+
+        if (itemId != null) {
+            boolean hasItem = itemService.userHasItem(user.getId(), itemId);
+            if (!hasItem) {
+                result.put("success", false);
+                result.put("message", "보유하지 않은 아이템이에요.");
+                // 갈레온 환불
+                userMapper.addGalleon(user.getId(), enhanceCost);
+                user.setGalleon(user.getGalleon() + enhanceCost);
+                return result;
+            }
+
+            ItemEntity item = itemService.getItemById(itemId);
+            switch (item.getEffectType()) {
+                case "SUCCESS_RATE_UP" -> {
+                    int bonus = item.getEffectValue().intValue();
+                    successRate += bonus;
+                    maintainRate -= bonus;
+                }
+                case "DESTROY_PROTECT" -> {
+                    int failRate = 100 - successRate - maintainRate;
+                    maintainRate += failRate;
+                }
+                case "COST_DISCOUNT" -> {
+                    // 이미 차감했으니 50% 환불
+                    int refund = enhanceCost / 2;
+                    userMapper.addGalleon(user.getId(), refund);
+                    user.setGalleon(user.getGalleon() + refund);
+                }
+            }
+
+            itemService.useItem(user.getId(), itemId);
+        }
 
         // 확률 판정 (0~99)
         int roll = (int) (Math.random() * 100);
