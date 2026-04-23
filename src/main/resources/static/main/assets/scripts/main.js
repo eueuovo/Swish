@@ -506,11 +506,7 @@ function showEnhanceFX(result) {
         txt.className   = 'fx-success-text';
         txt.textContent = '강화 성공!';
 
-        const sub = document.createElement('div');
-        sub.className   = 'fx-success-sub';
-        sub.textContent = '✦ Enchantment Succeeded ✦';
-
-        overlay.append(ring1, ring2, txt, sub);
+        overlay.append(ring1, ring2, txt);
 
     } else if (result === 'DESTROY') {
         const bg = document.createElement('div');
@@ -518,7 +514,7 @@ function showEnhanceFX(result) {
 
         const txt = document.createElement('div');
         txt.className   = 'fx-fail-text';
-        txt.textContent = '파괴됨...';
+        txt.textContent = '파괴';
 
         overlay.append(bg, txt);
 

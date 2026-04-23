@@ -10,7 +10,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
-  padding: 6rem 5.5rem 0 5.5rem;
+  padding: 6.5rem 5.5rem 0 5.5rem;
   min-width: 1000px;
   flex: 1;
 
@@ -247,12 +247,15 @@ body {
           font-weight: 700;
           font-size: 1.3rem;
           color: #D4A84B;
+
+          > .text{
+            font-size: 1.3rem;
+          }
         }
 
         > .item-list {
           @include flex(row, center, flex-start, 1rem);
           padding: 0.7rem 0 1rem 0;
-          border-bottom: 0.0625rem solid #D4A84B;
 
           > .item {
             @include flex(column, center, center, 0.3rem);
@@ -972,18 +975,6 @@ body {
   60%  { transform: scale(1) translateY(0);        opacity: 1; }
   85%  { transform: scale(1) translateY(0);        opacity: 1; }
   100% { transform: scale(0.9) translateY(-10px); opacity: 0; }
-}
-
-.fx-success-sub {
-  font-family: 'Cinzel', serif;
-  font-size: 1rem;
-  letter-spacing: 0.2em;
-  color: rgba(240, 200, 74, 0.8);
-  margin-top: 0.4rem;
-  animation: successPop 1.2s 0.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  opacity: 0;
-  position: relative;
-  z-index: 2;
 }
 
 // 파괴

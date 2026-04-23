@@ -109,7 +109,7 @@ ol, ul {
     @include flex(row, center, center);
     position: relative;
     width: 100%;
-    padding-bottom: 0.5rem;
+    padding-bottom: 1rem;
     border-bottom: 0.0625rem solid $global-btn-border;
 
     > .logo{
