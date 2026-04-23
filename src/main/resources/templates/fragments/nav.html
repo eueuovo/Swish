@@ -9,24 +9,28 @@
 </head>
 <body>
 <div class="nav" id="nav" th:fragment="nav">
-    <div class="category-section">
+    <div class="main-nav-wrapper">
         <a href="/main" class="logo">
             <img class="img" src="/assets/images/logo.png" alt="">
         </a>
-        <span class="category">shop</span>
-        <span class="category">codex</span>
+        <div class="user-section">
+            <div class="galleon" th:if="${session.sessionUser != null}">
+                <span class="icon">💸</span>
+                <span class="text" th:text="${session.sessionUser.galleon}"></span>
+            </div>
+            <div class="coin" th:if="${session.sessionUser != null}">
+                <span class="icon">💎</span>
+                <span class="text" th:text="${session.sessionUser.coin}"></span>
+            </div>
+            <a class="login" href="/user/login" th:if="${session.sessionUser == null}">login</a>
+            <a class="logout" href="/user/logout" th:if="${session.sessionUser != null}">logout</a>
+        </div>
     </div>
-    <div class="user-section">
-        <div class="galleon" th:if="${session.sessionUser != null}">
-            <span class="icon">💸</span>
-            <span class="text" th:text="${session.sessionUser.galleon}"></span>
-        </div>
-        <div class="coin" th:if="${session.sessionUser != null}">
-            <span class="icon">💎</span>
-            <span class="text" th:text="${session.sessionUser.coin}"></span>
-        </div>
-        <a class="login" href="/user/login" th:if="${session.sessionUser == null}">login</a>
-        <a class="logout" href="/user/logout" th:if="${session.sessionUser != null}">logout</a>
+
+    <div class="category-section">
+        <span class="category">shop</span>
+        <span class="divider"></span>
+        <span class="category">codex</span>
     </div>
 </div>
 </body>

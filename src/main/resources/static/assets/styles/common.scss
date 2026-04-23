@@ -28,7 +28,6 @@
 body {
   @include flex(column, stretch, flex-start);
   min-height: 100%;
-  color: $global-main-text;
   cursor: default;
   font-family: 'heiroflight';
   font-size: 0.95rem;
@@ -36,7 +35,23 @@ body {
   line-height: 1;
   margin: initial;
   user-select: none;
-  background-image: url("../../assets/images/main-back.png");
+  background: #1a1208;
+  color: #e8d4a0;
+
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+            radial-gradient(ellipse 80% 60% at 50% 0%,  rgba(60, 35, 5, 0.8)  0%, transparent 70%),
+            radial-gradient(ellipse 60% 40% at 20% 80%, rgba(40, 20, 5, 0.6)  0%, transparent 60%),
+            radial-gradient(ellipse 50% 50% at 80% 90%, rgba(50, 28, 8, 0.5)  0%, transparent 60%),
+            repeating-linear-gradient(0deg,  transparent, transparent 3px,  rgba(0,0,0,0.03)       3px,  rgba(0,0,0,0.03)       4px),
+            repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(212,168,75,0.015) 40px, rgba(212,168,75,0.015) 41px);
+    background-color: #1e1508;
+    pointer-events: none;
+    z-index: 0;
+  }
 }
 
 button, input, select, textarea {
@@ -81,43 +96,67 @@ ol, ul {
 }
 
 #nav{
-  @include flex(row, center, space-between, 1.5rem);
+  @include flex(column, center, space-between, 0.5rem);
   font-family: 'harry';
   width: 100%;
   height: 5rem;
-  padding: 0 1rem;
+  margin-top: 1rem;
+  padding: 1rem 6rem;
   color: $global-nav-text;
-  background-color: $global-background-color;
+  z-index: 1;
 
-  > .category-section{
-    @include flex(row, center, flex-start, 1.5rem);
+  > .main-nav-wrapper{
+    @include flex(row, center, center);
+    position: relative;
+    width: 100%;
+    padding-bottom: 0.5rem;
+    border-bottom: 0.0625rem solid $global-btn-border;
 
     > .logo{
       > .img{
-        width: 13rem;
+        width: 20rem;
         cursor: pointer;
       }
     }
 
-    > .category{
-      font-size: 2rem;
-      cursor: pointer;
+    > .user-section{
+      @include flex(row, center, flex-start, 1.5rem);
+      position: absolute;
+      right: 0;
+
+      > .galleon,
+      > .coin{
+        font-size: 1.3rem;
+        cursor: pointer;
+      }
+
+      > .login,
+      > .logout{
+        font-size: 2rem;
+        cursor: pointer;
+      }
     }
   }
 
-  > .user-section{
-    @include flex(row, center, flex-start, 1.5rem);
+  > .category-section{
+    @include flex(row, center, flex-start, 1rem);
+    width: 100%;
+    padding: 0.4rem 0.4rem 0.5rem 1rem;
+    border-bottom: 0.0625rem solid $global-btn-border;
 
-    > .galleon,
-    > .coin{
-      font-size: 1.3rem;
+    > .category{
+      font-size: 2rem;
+      padding: 0 1rem;
       cursor: pointer;
     }
 
-    > .login,
-    > .logout{
-      font-size: 2rem;
-      cursor: pointer;
+    > .divider{
+      display: inline-block;
+      width: 0.0625rem;
+      height: 1.5rem;
+      background-color: $global-btn-border;
+      cursor: default;
+      margin-bottom: 0.3rem;
     }
   }
 }

@@ -363,3 +363,207 @@ function updateProbDisplay(success, maintain, fail) {
     percents[2].textContent = fail + '%';
     updateBars();
 }
+
+// ================================================================
+// ✨ main_addition.js
+// 기존 main.js 하단에 이어붙이면 됩니다.
+// 기존 로직(claimDailyReward, enhanceBtn, sellBtn 등)은 그대로 유지.
+// ================================================================
+
+// ─────────────────────────────────────────
+// 🔮 1. 부유 파티클 배경 생성
+// ─────────────────────────────────────────
+
+(function initFloatingParticles() {
+    const container = document.getElementById('particles');
+    if (!container) return;
+
+    for (let i = 0; i < 18; i++) {
+        const p = document.createElement('div');
+        p.className = 'p';
+        p.style.left              = Math.random() * 100 + '%';
+        p.style.bottom            = '-5px';
+        p.style.width             =
+            p.style.height            = (Math.random() * 3 + 1.5) + 'px';
+        p.style.animationDuration = (Math.random() * 12 + 8) + 's';
+        p.style.animationDelay    = (Math.random() * 10) + 's';
+        container.appendChild(p);
+    }
+})();
+
+// ─────────────────────────────────────────
+// 🔮 2. 캔버스 파티클 FX
+// ─────────────────────────────────────────
+
+const _pfxCanvas = document.getElementById('pfx');
+const _pfxCtx    = _pfxCanvas ? _pfxCanvas.getContext('2d') : null;
+
+if (_pfxCanvas) {
+    _pfxCanvas.width  = window.innerWidth;
+    _pfxCanvas.height = window.innerHeight;
+    window.addEventListener('resize', () => {
+        _pfxCanvas.width  = window.innerWidth;
+        _pfxCanvas.height = window.innerHeight;
+    });
+}
+
+let _pfxParticles = [];
+let _pfxAnimId    = null;
+
+function _pfxSpawn(type) {
+    if (!_pfxCanvas) return;
+    const cx = _pfxCanvas.width  / 2;
+    const cy = _pfxCanvas.height / 2;
+    const n  = type === 'SUCCESS' ? 120 : type === 'DESTROY' ? 80 : 40;
+
+    const colors =
+        type === 'SUCCESS' ? ['#f0c84a', '#ffe080', '#ffffff', '#ffd700'] :
+            type === 'DESTROY' ? ['#ff4040', '#ff8080', '#cc2020', '#ff6060'] :
+                ['#d4a84b', '#c0a060', '#e8d080'];
+
+    for (let i = 0; i < n; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = (Math.random() * 6 + 3) * (type === 'SUCCESS' ? 1.4 : 1);
+        _pfxParticles.push({
+            x: cx, y: cy,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - (type === 'SUCCESS' ? 3 : 1),
+            life: 1,
+            decay: Math.random() * 0.015 + 0.01,
+            size: Math.random() * 4 + 2,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            gravity: 0.12,
+            shape: Math.random() < 0.3 ? 'star' : 'circle',
+        });
+    }
+}
+
+function _pfxDrawStar(x, y, r) {
+    _pfxCtx.beginPath();
+    for (let i = 0; i < 5; i++) {
+        const a = Math.PI / 2 + i * Math.PI * 0.4;
+        const b = a + Math.PI * 0.2;
+        i === 0
+            ? _pfxCtx.moveTo(x + Math.cos(a) * r,       y - Math.sin(a) * r)
+            : _pfxCtx.lineTo(x + Math.cos(a) * r,       y - Math.sin(a) * r);
+        _pfxCtx.lineTo(x + Math.cos(b) * r * 0.4, y - Math.sin(b) * r * 0.4);
+    }
+    _pfxCtx.closePath();
+    _pfxCtx.fill();
+}
+
+function _pfxAnimate() {
+    _pfxCtx.clearRect(0, 0, _pfxCanvas.width, _pfxCanvas.height);
+    _pfxParticles = _pfxParticles.filter(p => p.life > 0);
+
+    for (const p of _pfxParticles) {
+        p.x  += p.vx;
+        p.y  += p.vy;
+        p.vy += p.gravity;
+        p.life -= p.decay;
+
+        _pfxCtx.save();
+        _pfxCtx.globalAlpha = Math.max(0, p.life);
+        _pfxCtx.fillStyle   = p.color;
+        if (p.shape === 'star') _pfxDrawStar(p.x, p.y, p.size);
+        else {
+            _pfxCtx.beginPath();
+            _pfxCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            _pfxCtx.fill();
+        }
+        _pfxCtx.restore();
+    }
+
+    if (_pfxParticles.length > 0) _pfxAnimId = requestAnimationFrame(_pfxAnimate);
+    else _pfxCtx.clearRect(0, 0, _pfxCanvas.width, _pfxCanvas.height);
+}
+
+// ─────────────────────────────────────────
+// 🔮 3. 강화 결과 오버레이
+//    result: 'SUCCESS' | 'MAINTAIN' | 'DESTROY'  (백엔드 data.result 그대로)
+// ─────────────────────────────────────────
+
+function showEnhanceFX(result) {
+    const overlay = document.getElementById('fx-overlay');
+    if (!overlay) return;
+    overlay.innerHTML = '';
+
+    // 파티클 발사
+    _pfxSpawn(result);
+    if (_pfxAnimId) cancelAnimationFrame(_pfxAnimId);
+    _pfxAnimate();
+
+    if (result === 'SUCCESS') {
+        const ring1 = document.createElement('div');
+        ring1.className = 'fx-success-ring';
+
+        const ring2 = document.createElement('div');
+        ring2.className = 'fx-success-ring';
+        ring2.style.animationDelay = '0.15s';
+        ring2.style.borderColor    = 'rgba(240,200,74,0.5)';
+
+        const txt = document.createElement('div');
+        txt.className   = 'fx-success-text';
+        txt.textContent = '강화 성공!';
+
+        const sub = document.createElement('div');
+        sub.className   = 'fx-success-sub';
+        sub.textContent = '✦ Enchantment Succeeded ✦';
+
+        overlay.append(ring1, ring2, txt, sub);
+
+    } else if (result === 'DESTROY') {
+        const bg = document.createElement('div');
+        bg.className = 'fx-fail-bg';
+
+        const txt = document.createElement('div');
+        txt.className   = 'fx-fail-text';
+        txt.textContent = '파괴됨...';
+
+        overlay.append(bg, txt);
+
+    } else { // MAINTAIN
+        const txt = document.createElement('div');
+        txt.className   = 'fx-maintain-text';
+        txt.textContent = '강화 유지';
+        overlay.append(txt);
+    }
+
+    setTimeout(() => { overlay.innerHTML = ''; }, 1500);
+}
+
+// ─────────────────────────────────────────
+// 🔮 4. 기존 강화 버튼에 FX 후킹
+//    기존 main.js의 enhanceBtn click 핸들러가
+//    showToast(messages[data.result], ...) 를 호출하는 곳 직후에
+//    showEnhanceFX(data.result) 를 추가하는 패턴입니다.
+//    → 기존 핸들러를 수정하기 싫다면 아래 방법으로 감싸세요.
+// ─────────────────────────────────────────
+
+(function hookEnhanceFX() {
+    const enhanceBtn = document.querySelector('.enhance');
+    if (!enhanceBtn) return;
+
+    // MutationObserver로 오버레이가 아닌, fetch 응답을 가로채는 대신
+    // 기존 fetch를 monkey-patch 합니다 (가장 비침투적)
+    const _origFetch = window.fetch;
+    window.fetch = function(url, options) {
+        const p = _origFetch.apply(this, arguments);
+
+        // /main/enhance 응답만 가로채기
+        if (typeof url === 'string' && url.includes('/main/enhance')) {
+            return p.then(res => {
+                // res.json()은 한 번밖에 못 읽으므로 clone 후 처리
+                const cloned = res.clone();
+                cloned.json().then(data => {
+                    if (data.success && data.result) {
+                        showEnhanceFX(data.result);
+                    }
+                }).catch(() => {});
+                return res; // 원본 response 그대로 반환
+            });
+        }
+
+        return p;
+    };
+})();

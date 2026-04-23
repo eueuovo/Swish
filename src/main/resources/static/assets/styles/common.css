@@ -302,7 +302,6 @@ body {
   gap: 0;
   justify-content: flex-start;
   min-height: 100%;
-  color: #D4A84B;
   cursor: default;
   font-family: 'heiroflight';
   font-size: 0.95rem;
@@ -310,13 +309,22 @@ body {
   line-height: 1;
   margin: initial;
   user-select: none;
-  background-image: url("../../assets/images/main-back.png"); }
+  background: #1a1208;
+  color: #e8d4a0; }
   body > * {
     flex-grow: 0;
     flex-shrink: 0; }
   body > .-flex-stretch {
     flex-grow: 1;
     flex-shrink: 1; }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(60, 35, 5, 0.8) 0%, transparent 70%), radial-gradient(ellipse 60% 40% at 20% 80%, rgba(40, 20, 5, 0.6) 0%, transparent 60%), radial-gradient(ellipse 50% 50% at 80% 90%, rgba(50, 28, 8, 0.5) 0%, transparent 60%), repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, 0.03) 3px, rgba(0, 0, 0, 0.03) 4px), repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(212, 168, 75, 0.015) 40px, rgba(212, 168, 75, 0.015) 41px);
+    background-color: #1e1508;
+    pointer-events: none;
+    z-index: 0; }
 
 button, input, select, textarea {
   background-color: inherit;
@@ -356,59 +364,89 @@ ol, ul {
 #nav {
   align-items: center;
   display: flex;
-  flex-direction: row;
-  gap: 1.5rem;
+  flex-direction: column;
+  gap: 0.5rem;
   justify-content: space-between;
   font-family: 'harry';
   width: 100%;
   height: 5rem;
-  padding: 0 1rem;
+  margin-top: 1rem;
+  padding: 1rem 6rem;
   color: #E6D8D8;
-  background-color: #2C2121; }
+  z-index: 1; }
   #nav > * {
     flex-grow: 0;
     flex-shrink: 0; }
   #nav > .-flex-stretch {
     flex-grow: 1;
     flex-shrink: 1; }
+  #nav > .main-nav-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    padding-bottom: 0.5rem;
+    border-bottom: 0.0625rem solid #D4A84B; }
+    #nav > .main-nav-wrapper > * {
+      flex-grow: 0;
+      flex-shrink: 0; }
+    #nav > .main-nav-wrapper > .-flex-stretch {
+      flex-grow: 1;
+      flex-shrink: 1; }
+    #nav > .main-nav-wrapper > .logo > .img {
+      width: 20rem;
+      cursor: pointer; }
+    #nav > .main-nav-wrapper > .user-section {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      gap: 1.5rem;
+      justify-content: flex-start;
+      position: absolute;
+      right: 0; }
+      #nav > .main-nav-wrapper > .user-section > * {
+        flex-grow: 0;
+        flex-shrink: 0; }
+      #nav > .main-nav-wrapper > .user-section > .-flex-stretch {
+        flex-grow: 1;
+        flex-shrink: 1; }
+      #nav > .main-nav-wrapper > .user-section > .galleon,
+      #nav > .main-nav-wrapper > .user-section > .coin {
+        font-size: 1.3rem;
+        cursor: pointer; }
+      #nav > .main-nav-wrapper > .user-section > .login,
+      #nav > .main-nav-wrapper > .user-section > .logout {
+        font-size: 2rem;
+        cursor: pointer; }
   #nav > .category-section {
     align-items: center;
     display: flex;
     flex-direction: row;
-    gap: 1.5rem;
-    justify-content: flex-start; }
+    gap: 1rem;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0.4rem 0.4rem 0.5rem 1rem;
+    border-bottom: 0.0625rem solid #D4A84B; }
     #nav > .category-section > * {
       flex-grow: 0;
       flex-shrink: 0; }
     #nav > .category-section > .-flex-stretch {
       flex-grow: 1;
       flex-shrink: 1; }
-    #nav > .category-section > .logo > .img {
-      width: 13rem;
-      cursor: pointer; }
     #nav > .category-section > .category {
       font-size: 2rem;
+      padding: 0 1rem;
       cursor: pointer; }
-  #nav > .user-section {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    gap: 1.5rem;
-    justify-content: flex-start; }
-    #nav > .user-section > * {
-      flex-grow: 0;
-      flex-shrink: 0; }
-    #nav > .user-section > .-flex-stretch {
-      flex-grow: 1;
-      flex-shrink: 1; }
-    #nav > .user-section > .galleon,
-    #nav > .user-section > .coin {
-      font-size: 1.3rem;
-      cursor: pointer; }
-    #nav > .user-section > .login,
-    #nav > .user-section > .logout {
-      font-size: 2rem;
-      cursor: pointer; }
+    #nav > .category-section > .divider {
+      display: inline-block;
+      width: 0.0625rem;
+      height: 1.5rem;
+      background-color: #D4A84B;
+      cursor: default;
+      margin-bottom: 0.3rem; }
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

@@ -13,8 +13,10 @@
 <body>
 <th:block th:replace="~{fragments/nav.html :: nav}"></th:block>
 <div class="toast-container" id="toastContainer"></div>
+<div class="particles" id="particles"></div>
+<canvas id="pfx"></canvas>
+<div id="fx-overlay"></div>
 <div class="main" id="main">
-    <img class="map" src="/main/assets/images/map.png" alt="">
     <div class="panel">
         <div class="login-overlay" th:if="${session.sessionUser == null}">
             <div class="text">로그인 하여 지팡이를 강화하고</div>
@@ -46,7 +48,8 @@
                         <span class="score" th:text="${rank.totalScore} + '점'">0점</span>
                     </li>
                 </ul>
-            </div>        </div>
+            </div>
+        </div>
         <div class="main-panel">
             <h2>지팡이 강화</h2>
             <div class="wand-info">

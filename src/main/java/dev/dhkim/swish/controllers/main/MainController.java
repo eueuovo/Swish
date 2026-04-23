@@ -103,4 +103,11 @@ public class MainController {
 
         return ResponseEntity.ok(result);
     }
+
+    @RequestMapping(value = "shop", method = RequestMethod.GET)
+    public ModelAndView getShop(ModelAndView modelAndView,
+                                @SessionAttribute(value = "sessionUser", required = false) UserEntity sessionUser){
+        modelAndView.setViewName("shop/shop");
+        return modelAndView;
+    }
 }

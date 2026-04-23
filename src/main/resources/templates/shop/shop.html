@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assets/styles/common.css">
+    <link rel="stylesheet" href="/shop/assets/styles/shop.css">
+</head>
+<body>
+<th:block th:replace="~{fragments/nav.html :: nav}"></th:block>
+<section class="shop-title">
+    <div class="eng-content">Ollivanders Shop</div>
+    <div class="kor-content">다이애건 앨리의 마법 상점</div>
+</section>
+<section class="item-wrapper">
+    <div class="tab-btn">
+        <button class="tab" data-target="panel1">강화</button>
+        <button class="tab" data-target="panel2">파괴 방지</button>
+    </div>
+    <div class="tab-content">
+        <div id="panel1" class="content">
+            <div class="item-wrapper">
+                <img class="image" src="" alt="">
+                <div class="name">펠릭스 펠리시스</div>
+                <div class="des">마법 강화 성공률 대폭 상승</div>
+                <div class="cost">50</div>
+            </div>
+        </div>
+        <div id="panel2" class="content">
+            <div class="item-wrapper">
+                <img class="image" src="" alt="">
+                <div class="name">펠릭스 펠리시스</div>
+                <div class="des">마법 강화 성공률 대폭 상승</div>
+                <div class="cost">50</div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
